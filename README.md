@@ -30,6 +30,28 @@ The [German Traffic Sign Recognition Benchmark (GTSRB)](https://benchmark.ini.ru
 - Varying distances and resolutions
 - Partial occlusions and physical damage
 
+### Class Mapping
+
+The GTSRB dataset consists of 43 different traffic sign classes:
+
+| ID | Sign Name | ID | Sign Name | ID | Sign Name |
+|----|-----------|-----|-----------|-----|-----------|
+| 0 | Speed limit (20km/h) | 15 | No vehicles | 30 | Beware of ice/snow |
+| 1 | Speed limit (30km/h) | 16 | Vehicles >3.5t prohibited | 31 | Wild animals crossing |
+| 2 | Speed limit (50km/h) | 17 | No entry | 32 | End speed + passing limits |
+| 3 | Speed limit (60km/h) | 18 | General caution | 33 | Turn right ahead |
+| 4 | Speed limit (70km/h) | 19 | Dangerous curve left | 34 | Turn left ahead |
+| 5 | Speed limit (80km/h) | 20 | Dangerous curve right | 35 | Ahead only |
+| 6 | End of speed limit (80km/h) | 21 | Double curve | 36 | Go straight or right |
+| 7 | Speed limit (100km/h) | 22 | Bumpy road | 37 | Go straight or left |
+| 8 | Speed limit (120km/h) | 23 | Slippery road | 38 | Keep right |
+| 9 | No passing | 24 | Road narrows on the right | 39 | Keep left |
+| 10 | No passing >3.5t vehicles | 25 | Road work | 40 | Roundabout mandatory |
+| 11 | Right-of-way at intersection | 26 | Traffic signals | 41 | End of no passing |
+| 12 | Priority road | 27 | Pedestrians | 42 | End no passing >3.5t vehicles |
+| 13 | Yield | 28 | Children crossing | | |
+| 14 | Stop | 29 | Bicycles crossing | | |
+
 ![Dataset Distribution](results/class_distribution.png)
 
 *Figure 1: Distribution of classes in the GTSRB dataset.*
@@ -121,13 +143,35 @@ The rapid improvement in the early epochs demonstrates the effectiveness of the 
 
 The learning curves above show a characteristic pattern of rapid initial convergence followed by fine-tuning in later epochs. The validation accuracy stabilizes around 97-98%, indicating good generalization without overfitting.
 
+#### Classification Performance Analysis
+
+To thoroughly analyze the model's classification performance, we visualized the results in two complementary ways:
+
+**Confusion Matrix**
+
+The traditional confusion matrix provides a comprehensive quantitative view of the model's predictions across all 43 traffic sign classes:
+
 ![Confusion Matrix](results/confusion_matrix.png)
 
-*Figure 4: Confusion matrix showing classification results across all 43 classes.*
+*Figure 4: Confusion matrix showing classification results across all 43 classes. The diagonal represents correct classifications, while off-diagonal elements represent misclassifications.*
 
-![Example Classifications](insert_path_to_classification_examples.png) #TODO: will be added in next commit
+**Classification Flow Visualization**
 
-*Figure 5: Examples of correctly and incorrectly classified traffic signs.*
+To better understand the specific patterns of misclassification, we visualized the flow between true and predicted labels using a Sankey diagram:
+
+![Sankey Diagram of Predictions](results/sankey_confusion.png)
+
+*Figure 5: Sankey diagram showing the flow between true labels and predicted labels. This visualization highlights which classes are most commonly confused with each other. Visualization technique adapted from [GTSRB Kaggle discussion](https://www.kaggle.com/datasets/meowmeowmeowmeowmeow/gtsrb-german-traffic-sign/discussion/383646).*
+
+The Sankey diagram reveals that most misclassifications occur between visually similar signs, particularly between different speed limit signs (classes 1-8) and directional instruction signs (classes 38-39).
+
+**Example Classifications**
+
+Below are examples of correctly classified signs and some challenging cases where misclassifications occurred:
+
+![Example Classifications](results/classification_examples.png)
+
+*Figure 6: Examples of correctly and incorrectly classified traffic signs.*
 
 ### Model Testing Interface
 A simple testing interface was implemented to demonstrate the model's practical usability:

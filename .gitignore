@@ -25,6 +25,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+.DS_Store
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -172,3 +173,14 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Ignore dataset files and folders
+training_data/
+*.csv
+*.zip
+*.tar
+*.h5
+*.npz
+
+# Ignore any local configurations
+config.json
